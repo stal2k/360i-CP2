@@ -1,0 +1,16 @@
+<md-toolbar class="navigation-header md-whiteframe-1dp" layout="row" layout-align="space-between center">
+    <style>
+	#vertical-navigation .navigation-header .logo .logo-image {
+		text-align: center;
+		font-size: 12px;
+		</style>
+	<div class="logo" layout="row" layout-align="start center">
+        <span class="logo-image">360i</span>
+        <span class="logo-text">Client Portal</span>
+    </div>
+
+    <md-icon class="fold-toggle s18" md-font-icon="icon-backburger" hide show-gt-sm
+             ng-click="vm.toggleMsNavigationFolded()"></md-icon>
+</md-toolbar>
+
+<ms-navigation class="scrollable" folded="vm.folded" ms-scroll="vm.msScrollOptions"></ms-navigation>

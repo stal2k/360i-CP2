@@ -1,0 +1,10 @@
+# Use PHP5.4 as default
+AddHandler application/x-httpd-php54 .php
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Send all requests to the index.html unless
+    # it's a directory or a file that actually exists
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.html [L]
+</IfModule>

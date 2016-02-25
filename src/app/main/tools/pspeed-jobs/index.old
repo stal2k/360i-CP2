@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Speed - SEOMetrics | 360i </title>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="/serp-analytics/css/animations.css" type="text/css" />
+<link rel="stylesheet" href="/serp-analytics/css/animations2.css" type="text/css" />
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+<meta name="ROBOTS" content="NO INDEX, NO FOLLOW">
+</head>
+<body>
+<div id="container">
+<div id="header">
+<img src="/360i-logo-white.png" id="header-logo" />
+<a href="http://seometrics.360i.com" class="no-show-link"><h1>SEO Metrics</h1></a>
+</div>
+<div id="content-wrapper">
+<div id="pageHeadlineBar">
+<div id="pageHeadline"><img id="pageSpeedIcon" src="/img/page-speed-128-black3.png" /><h2>PageSpeed Test Results</h2></div>
+</div>
+<table class="jobTable">
+<tr id="jobTableHeader"><th>Job ID</th><th>Company</th><th>Description</th><th>Submitted By</th><th>Schedule Type</th><th>Submitted On</th><th>Status</th></tr>
+<tbody id="jobTableBody"></tbody>
+</table>
+</div>
+</div>
+<script>
+$(document).ready(function() {
+    $.get("config/jobs-list.php")
+        .done(function(data) {
+            var jobTable = $.parseJSON(data);
+            var jobTableCodeObject = document.getElementById('jobTableBody');
+            var jobTableCode = '';
+            for (var i = 0; i < jobTable.length; i++) {
+                jobTableCode += "<tr><td>" + jobTable[i].JobID + "</td><td>" + jobTable[i].Company + "</td><td>" + jobTable[i].Description + "</td><td>" + jobTable[i].Submitter + "</td><td>" + ((jobTable[i].ScheduleType > 0) ? ((jobTable[i].ScheduleType > 1) ? "Run every " + jobTable[i].ScheduleType + " days" : "Run every day") : "One Off") + "</td><td>" + jobTable[i].RequestDate + "</td><td>" + ((jobTable[i].Status == 0) ? "<a href='progress.php#" + jobTable[i].JobID + "'>In Progress</a>" : "<a href='results.php?jobid=" + jobTable[i].JobID + "&company=" + encodeURIComponent(jobTable[i].Company) + "'>Complete</a>") + "</td></tr>";
+            };
+            jobTableCodeObject.innerHTML = jobTableCode;
+    });
+});
+</script>
+</body>
+</html>
